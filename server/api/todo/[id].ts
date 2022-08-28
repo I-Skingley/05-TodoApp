@@ -27,6 +27,7 @@ export default defineEventHandler((e) => {
             });
 
             sendError(e, TodoNotFoundError)
+            return;
         };
 
         return { todo, index };
@@ -39,6 +40,7 @@ export default defineEventHandler((e) => {
 
         // 4) Update the completed status
         const updateTodo = {
+
             ...todo,
             completed: !todo.completed,
         };
@@ -50,10 +52,11 @@ export default defineEventHandler((e) => {
     }
 
     if (method === "DELETE") {
+
         const { todo, index } = findTodoById(id);
         db.todos.splice(index, 1);
         return {
-            message: "item deleted"
-        }
+            message: "item deleted",
+        };
     }
 })

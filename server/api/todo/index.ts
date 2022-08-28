@@ -5,8 +5,7 @@ import { sendError } from "h3"
 export default defineEventHandler(async (e) => {
     const method = e.req.method
     if (method === "GET") {
-        console.log("GET")
-        return db.todos
+        return db.todos;
     }
     if (method === "POST") {
         const body = await useBody(e)
@@ -18,6 +17,7 @@ export default defineEventHandler(async (e) => {
             });
 
             sendError(e, TodoNotFoundError)
+            return;
         }
 
         const newTodo = {
@@ -26,7 +26,6 @@ export default defineEventHandler(async (e) => {
             completed: false,
         }
         db.todos.push(newTodo)
-
-        return newTodo
+        return newTodo;
     }
 })
